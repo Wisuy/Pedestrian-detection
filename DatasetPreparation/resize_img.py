@@ -2,7 +2,7 @@ import os
 from PIL import Image
 
 folder = r'C:\Facultate\Licenta\ECP dataset\day\train\images'
-max_dim = 640  # Maximum dimension (width or height)
+max_dim = 640
 
 def resize_in_place(img_path, max_dim):
     with Image.open(img_path) as img:
@@ -10,7 +10,6 @@ def resize_in_place(img_path, max_dim):
         img = img.convert("RGB")
         w, h = img.size
 
-        # Skip resizing if already small enough
         if max(w, h) <= max_dim:
             return
 
@@ -18,7 +17,6 @@ def resize_in_place(img_path, max_dim):
         new_size = (int(w * scale), int(h * scale))
         resized_img = img.resize(new_size, Image.LANCZOS)
 
-        # Save with quality settings
         if img_format == "PNG":
             resized_img.save(img_path, format="PNG", optimize=True)
         else:
@@ -32,6 +30,6 @@ for filename in os.listdir(folder):
             resize_in_place(img_path, max_dim)
             count += 1
         except Exception as e:
-            print(f"⚠️ Error processing {filename}: {e}")
+            print(f"Error processing {filename}: {e}")
 
-print(f"✅ Done: Resized {count} images in-place in {folder}")
+print(f"Done: Resized {count} images in-place in {folder}")

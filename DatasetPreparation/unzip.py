@@ -49,7 +49,7 @@ def extract_day_zip(zip_path, modality, split):
 
             members.append(member)
 
-        print(f"📦 Extracting {len(members)} files from {os.path.basename(zip_path)}")
+        print(f"Extracting {len(members)} files from {os.path.basename(zip_path)}")
 
         def extract_member(member):
             parts = member.filename.split('/')
@@ -90,7 +90,7 @@ def extract_day_zip(zip_path, modality, split):
             for member in tqdm(members):
                 extract_member(member)
 
-        print(f"✅ Done extracting day {modality} {split} from {os.path.basename(zip_path)}")
+        print(f"Done extracting day {modality} {split} from {os.path.basename(zip_path)}")
 
 def extract_night_zip(zip_path, modality, split):
     images_out_dir = os.path.join(extract_root, "night", split, "images")
@@ -101,7 +101,7 @@ def extract_night_zip(zip_path, modality, split):
     with zipfile.ZipFile(zip_path, 'r') as zip_ref:
         members = [m for m in zip_ref.infolist() if not m.is_dir() and len(m.filename.split('/')) >= 5]
 
-        print(f"📦 Extracting {len(members)} files from {os.path.basename(zip_path)}")
+        print(f"Extracting {len(members)} files from {os.path.basename(zip_path)}")
 
         def extract_member(member):
             filename = os.path.basename(member.filename)
@@ -122,7 +122,7 @@ def extract_night_zip(zip_path, modality, split):
             for member in tqdm(members):
                 extract_member(member)
 
-        print(f"✅ Done extracting night {modality} {split} from {os.path.basename(zip_path)}")
+        print(f"Done extracting night {modality} {split} from {os.path.basename(zip_path)}")
 
 # Run extraction
 for zip_name in day_zip_files:
@@ -137,4 +137,4 @@ for zip_name in night_zip_files:
     split = 'train' if 'train' in zip_name else 'val'
     extract_night_zip(zip_path, modality, split)
 
-print("\n🎉 All day and night data extracted successfully.")
+print("\nAll day and night data extracted successfully.")

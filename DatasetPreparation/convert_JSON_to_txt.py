@@ -1,10 +1,8 @@
 import os
 import json
 
-# Base path where JSON files are located
 base_label_dir = r'C:\Facultate\Licenta\ECP dataset\ECP\train\labels'
 
-# Classes to keep, mapped to YOLO class IDs
 classes = {"pedestrian": 0}
 
 for root, _, files in os.walk(base_label_dir):
@@ -38,9 +36,8 @@ for root, _, files in os.walk(base_label_dir):
             yolo_lines.append(f"{class_id} {x_center:.6f} {y_center:.6f} {width:.6f} {height:.6f}")
         
         if not yolo_lines:
-            continue  # no annotations for these classes, skip
+            continue 
         
-        # Save the YOLO txt file next to the original JSON file, same name but .txt extension
         txt_path = os.path.splitext(json_path)[0] + '.txt'
         
         with open(txt_path, 'w') as out_f:
@@ -48,4 +45,4 @@ for root, _, files in os.walk(base_label_dir):
         
         print(f"Converted {json_path} -> {txt_path}")
 
-print("✅ Done converting all JSON annotations to YOLO format.")
+print("Done converting all JSON annotations to YOLO format.")
